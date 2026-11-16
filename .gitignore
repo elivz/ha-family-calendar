@@ -4,3 +4,5 @@ harness/fonts/
 .env
 esphome/secrets.yaml
 esphome/.esphome/
+*.local.json
+*.local.yaml

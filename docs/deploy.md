@@ -44,6 +44,10 @@ Edit the entity IDs for your calendars and weather. Options are documented in [c
 The dashboard must be named `eink-panel` and its view paths must be `home`, `week`, `weather`, because the automation
 and Puppet URLs use them.
 
+**Keeping your real config out of git.** Copy `dashboard/eink-panel.json` to `dashboard/eink-panel.local.json` and
+`ha/automation.yaml` to `ha/automation.local.yaml`, then put your real entity IDs and folder name in the copies.
+`*.local.*` is git-ignored, and `scripts/deploy.js --dashboard` uses the `.local` dashboard when it exists.
+
 ## 4. Pick the output folder
 
 Anything under `/config/www/` is served at `/local/` **without authentication**. Choose a random folder name, for

@@ -32,7 +32,11 @@ async function run() {
   if (old) { await call({ type: 'lovelace/resources/update', resource_id: old.id, res_type: 'module', url }); console.log(`Updated resource ${old.id} (${code.length} bytes)`); }
   else { const r = await call({ type: 'lovelace/resources/create', res_type: 'module', url }); console.log(`Created resource ${r.id} (${code.length} bytes)`); }
   if (withDashboard) {
-    const config = JSON.parse(fs.readFileSync(path.join(root, 'dashboard/eink-panel.json'), 'utf8'));
+    // a git-ignored eink-panel.local.json (your real entity IDs) wins over the generic example
+    const local = path.join(root, 'dashboard/eink-panel.local.json');
+    const file = fs.existsSync(local) ? local : path.join(root, 'dashboard/eink-panel.json');
+    console.log('Using', path.relative(root, file));
+    const config = JSON.parse(fs.readFileSync(file, 'utf8'));
     const dashboards = await call({ type: 'lovelace/dashboards/list' });
     if (!dashboards.some(d => d.url_path === 'eink-panel'))
       await call({ type: 'lovelace/dashboards/create', url_path: 'eink-panel', title: 'E-ink panel', icon: 'mdi:calendar', show_in_sidebar: false, require_admin: false, mode: 'storage' });
