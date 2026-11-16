@@ -1,0 +1,42 @@
+# E-ink panel: re-sync the calendar, then render the three views to static PNGs.
+# Replace eink-RANDOM with your own random folder name (see docs/deploy.md, step 4).
+alias: E-ink panel - refresh & render
+description: >-
+  Every 15 minutes during waking hours: re-sync the family Google calendar, then render the
+  e-ink views through Puppet and save them as PNGs in /config/www/eink-RANDOM/ for the panel
+  to download. The folder name is random because /local/ is served without login.
+mode: single
+max_exceeded: silent
+triggers:
+  - trigger: time_pattern
+    minutes: /15
+  - trigger: homeassistant
+    event: start
+conditions:
+  - condition: time
+    after: "05:45:00"
+    before: "22:30:00"
+actions:
+  - action: homeassistant.update_entity
+    continue_on_error: true
+    target:
+      entity_id: calendar.family
+  # Warm-up: the first (cold) Puppet render often exceeds the Downloader's 10 s timeout.
+  # This throwaway request absorbs the cold start so the real renders succeed.
+  - action: downloader.download_file
+    continue_on_error: true
+    data:
+      url: http://127.0.0.1:10000/eink-panel/weather?viewport=800x480&eink=2&wait=500
+      subdir: eink-RANDOM
+      filename: warmup.png
+      overwrite: true
+  - repeat:
+      for_each: [home, week, weather]
+      sequence:
+        - action: downloader.download_file
+          continue_on_error: true
+          data:
+            url: "http://127.0.0.1:10000/eink-panel/{{ repeat.item }}?viewport=800x480&eink=2&wait=4000"
+            subdir: eink-RANDOM
+            filename: "{{ repeat.item }}.png"
+            overwrite: true

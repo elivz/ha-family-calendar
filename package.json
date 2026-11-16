@@ -1,0 +1,15 @@
+{
+  "name": "ha-family-calendar",
+  "version": "0.1.0",
+  "private": true,
+  "description": "1-bit family calendar for a Home Assistant e-ink panel (Seeed reTerminal E1001)",
+  "type": "commonjs",
+  "scripts": {
+    "fonts": "node harness/fetch-fonts.js",
+    "render": "node harness/render.js src/eink-calendar-card.js out harness/jobs.json",
+    "sheet": "node harness/sheet.js out home 'Home view' out/sheet.png",
+    "check": "node --check src/eink-calendar-card.js",
+    "deploy": "node scripts/deploy.js"
+  },
+  "devDependencies": { "@mdi/js": "^7.4.47", "playwright": "^1.48.0", "sharp": "^0.33.5" }
+}

@@ -1,0 +1,58 @@
+{
+  "views": [
+    {
+      "path": "home",
+      "title": "Home",
+      "type": "panel",
+      "cards": [
+        {
+          "type": "custom:eink-calendar-card",
+          "view": "home",
+          "calendars": [
+            { "entity": "calendar.family" },
+            { "entity": "calendar.school", "icon": "mdi:school", "dedupe": true },
+            { "entity": "calendar.scouts", "icon": "mdi:campfire", "dedupe": true },
+            { "entity": "calendar.holidays_in_united_states", "icon": "mdi:flag-variant", "holiday_icons": true },
+            { "entity": "calendar.work_availability", "busy": true }
+          ],
+          "weather": "weather.forecast_home",
+          "forecast": "weather.nws_example",
+          "timeline_style": "bracket",
+          "timeline_axis": "linear"
+        }
+      ]
+    },
+    {
+      "path": "week",
+      "title": "Week",
+      "type": "panel",
+      "cards": [
+        {
+          "type": "custom:eink-calendar-card",
+          "view": "week",
+          "calendars": [
+            { "entity": "calendar.family" },
+            { "entity": "calendar.school", "icon": "mdi:school", "dedupe": true },
+            { "entity": "calendar.scouts", "icon": "mdi:campfire", "dedupe": true },
+            { "entity": "calendar.holidays_in_united_states", "icon": "mdi:flag-variant", "holiday_icons": true }
+          ],
+          "weather": "weather.forecast_home",
+          "forecast": "weather.nws_example"
+        }
+      ]
+    },
+    {
+      "path": "weather",
+      "title": "Weather",
+      "type": "panel",
+      "cards": [
+        {
+          "type": "custom:eink-calendar-card",
+          "view": "weather",
+          "weather": "weather.forecast_home",
+          "forecast": "weather.nws_example"
+        }
+      ]
+    }
+  ]
+}

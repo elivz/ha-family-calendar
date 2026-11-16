@@ -1,0 +1,7 @@
+[
+  { "name": "home-busy",   "date": "11-07", "time": "10:15", "cfg": { "view": "home", "timeline_style": "bracket", "timeline_axis": "linear" } },
+  { "name": "home-quiet",  "date": "11-10", "time": "07:45", "cfg": { "view": "home", "timeline_style": "bracket", "timeline_axis": "linear" } },
+  { "name": "home-busycal","date": "11-09", "time": "14:30", "cfg": { "view": "home", "timeline_style": "bracket", "timeline_axis": "linear", "calendars": [{ "entity": "calendar.family" }, { "entity": "calendar.work_availability", "busy": true }] } },
+  { "name": "week",        "date": "11-04", "time": "09:00", "cfg": { "view": "week" } },
+  { "name": "weather",     "date": "11-04", "time": "09:00", "cfg": { "view": "weather" } }
+]
